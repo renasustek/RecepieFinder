@@ -4,7 +4,7 @@ services:
   # MySQL
   db:
     container_name: mysql
-    image: mysql:8.0
+    image: "mysql:$MYSQL_VERSION"
     command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -16,3 +16,32 @@ services:
     volumes:
       - './docker/db/sql:/docker-entrypoint-initdb.d'
 
+
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:$ES_VERSION"
+    container_name: elasticsearch_1
+    environment:
+      discovery.type: single-node # Run Elastic as single node, not real cluster
+      ES_JAVA_OPTS: "-Xms$ES_MEMORY -Xmx$ES_MEMORY -XX:-HeapDumpOnOutOfMemoryError" # JVM settings (backup/client-dependent)
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://elasticsearch:9200/_cat/health?h=st" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    volumes:
+      - './elasticConfig/config.yml:/config/elasticsearch.yml'
+
+  kibana:
+    container_name: kibana_1
+    image: "docker.elastic.co/kibana/kibana:$ES_VERSION"
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch

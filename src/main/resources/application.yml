@@ -27,3 +27,5 @@ spring:
         JdbcTemplate: DEBUG
         StatementCreatorUtils: TRACE
       security: DEBUG
+  elasticsearch:
+    uris: http://localhost:9200
