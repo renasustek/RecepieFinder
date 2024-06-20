@@ -24,10 +24,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("mysql:mysql-connector-java:8.0.33")
 	implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+	implementation("org.hibernate:hibernate-validator:8.0.1.Final")
 
 	testImplementation("org.junit.jupiter:junit-jupiter:5.4.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-//	testImplementation("org.springframework.boot:spring-test")
 	testImplementation("io.projectreactor:reactor-test")
 }
 

@@ -1,5 +1,6 @@
 package com.github.renas.recepieFinder.controller;
 
+import com.github.renas.recepieFinder.persistance.objectMappings.RecipeMapping;
 import com.github.renas.recepieFinder.requestBodies.IngredientsRequest;
 import com.github.renas.recepieFinder.requestBodies.Recipe;
 import com.github.renas.recepieFinder.service.RecipeMatcherService;
