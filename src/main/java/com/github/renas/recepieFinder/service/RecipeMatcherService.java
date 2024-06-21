@@ -1,6 +1,5 @@
 package com.github.renas.recepieFinder.service;
 
-import com.github.renas.recepieFinder.persistance.RecipeRepository;
 import com.github.renas.recepieFinder.requestBodies.IngredientsRequest;
 import com.github.renas.recepieFinder.persistance.objectMappings.RecipeMapping;
 import com.github.renas.recepieFinder.persistance.ElasticsearchRepo;
@@ -17,11 +16,9 @@ public class RecipeMatcherService {
 
     private final ElasticsearchRepo elasticsearchRepo;
 
-    private final RecipeRepository recepieRepository;
 
-    public RecipeMatcherService(ElasticsearchRepo elasticsearchRepo, RecipeRepository recepieRepository) {
+    public RecipeMatcherService(ElasticsearchRepo elasticsearchRepo) {
         this.elasticsearchRepo = elasticsearchRepo;
-        this.recepieRepository = recepieRepository;
     }
 
     public List<Recipe> recipeSearch(IngredientsRequest ingredientsRequest){
@@ -35,6 +32,8 @@ public class RecipeMatcherService {
         }
         SearchHits<RecipeMapping> callRepo = elasticsearchRepo.getRecipes(mustIngredientsSb.toString(), shouldIngredientsSb.toString());
         List<Recipe> recipes = new ArrayList<>();
+        System.out.println("HELLLO");
+        System.out.println(callRepo);
         for (SearchHit<RecipeMapping> hit : callRepo) {
             recipes.add(new Recipe(hit.getContent().getName(),hit.getContent().getIngredients(),hit.getContent().getSteps()));
         }

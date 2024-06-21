@@ -13,6 +13,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(value = "/ingredients", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RecipeMatcherController {
+
     private final RecipeMatcherService ingredientsService;
 
     public RecipeMatcherController(RecipeMatcherService ingredientsService){

@@ -77,16 +77,7 @@ class RecipeMatcherControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]", true));
     }
-//
-//    void whenGivenIncorrectRequestReturnEmptyList() throws Exception {
-//        when(service.recipeSearch(invalidRequest))
-//                .thenReturn(Collections.emptyList());
-//        mvc.perform(post("/ingredients")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(emptyRequest)))
-//                .andExpect(status().isOk())
-//                .andExpect(content().json("[]", true));
-//    }
+
 
 
 
