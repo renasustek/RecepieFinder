@@ -1,7 +1,6 @@
 plugins {
 	java
 	jacoco
-	`jacoco-report-aggregation`
 	id("com.diffplug.spotless") version "7.0.0.BETA1"
 	id("org.springframework.boot") version "3.3.0"
 	id("io.spring.dependency-management") version "1.1.5"
@@ -39,20 +38,15 @@ dependencies {
 
 tasks.test {
 	useJUnitPlatform()
+	finalizedBy(tasks.jacocoTestReport)
 }
 
-tasks.testCodeCoverageReport {
-	dependsOn(tasks.test)
-	executionData(fileTree(layout.buildDirectory).include("jacoco/*.exec"))
+
+tasks.jacocoTestReport {
 	reports {
 		xml.required = true
-		html.required = true
 	}
-	mustRunAfter(tasks.spotlessApply)
-}
-
-tasks.check {
-	dependsOn(tasks.testCodeCoverageReport)
+	dependsOn(tasks.test)
 }
 
 sonar {
