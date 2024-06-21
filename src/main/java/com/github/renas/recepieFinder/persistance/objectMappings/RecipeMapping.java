@@ -25,6 +25,14 @@ public class RecipeMapping {
     @Field(type = FieldType.Text)
     private List<String> steps;
 
+    public RecipeMapping(UUID id, String name, String description, List<String> ingredients, List<String> steps) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.steps = steps;
+    }
+
     public String getName() {
         return name;
     }

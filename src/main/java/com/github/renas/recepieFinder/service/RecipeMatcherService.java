@@ -24,19 +24,15 @@ public class RecipeMatcherService {
     public List<Recipe> recipeSearch(IngredientsRequest ingredientsRequest){
         StringBuilder mustIngredientsSb = new StringBuilder();
         StringBuilder shouldIngredientsSb = new StringBuilder();
-        for (String ingredient: ingredientsRequest.mustIngredients()){
-            mustIngredientsSb.append(ingredient).append(" ");
-        }
-        for (String ingredient: ingredientsRequest.shouldIngredients()){
-            shouldIngredientsSb.append(ingredient).append(" ");
-        }
-        SearchHits<RecipeMapping> callRepo = elasticsearchRepo.getRecipes(mustIngredientsSb.toString(), shouldIngredientsSb.toString());
+        ingredientsRequest.mustIngredients().forEach( i -> mustIngredientsSb.append(i).append(" "));
+        ingredientsRequest.shouldIngredients().forEach( i -> shouldIngredientsSb.append(i).append(" "));
+
         List<Recipe> recipes = new ArrayList<>();
-        System.out.println("HELLLO");
-        System.out.println(callRepo);
-        for (SearchHit<RecipeMapping> hit : callRepo) {
-            recipes.add(new Recipe(hit.getContent().getName(),hit.getContent().getIngredients(),hit.getContent().getSteps()));
-        }
+
+        elasticsearchRepo.getRecipes(mustIngredientsSb.toString(), shouldIngredientsSb.toString())
+                .getSearchHits().forEach(hit
+                        -> recipes.add(new Recipe(hit.getContent().getName(),hit.getContent().getIngredients(),hit.getContent().getSteps())));
+
 
         return recipes;
     }
