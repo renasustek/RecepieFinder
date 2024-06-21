@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.3.0"
 	id("io.spring.dependency-management") version "1.1.5"
+	id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "com.github.renas"
@@ -14,6 +15,15 @@ java {
 repositories {
 	mavenCentral()
 }
+
+sonar {
+	properties {
+		property("sonar.projectKey", "renasustek_RecepieFinder")
+		property("sonar.organization", "renasustek")
+		property("sonar.host.url", "https://sonarcloud.io")
+	}
+}
+
 
 dependencies {
 
