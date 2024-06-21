@@ -23,6 +23,7 @@ public class RecipeMatcherService {
 
     public List<Recipe> recipeSearch(IngredientsRequest ingredientsRequest){
         StringBuilder mustIngredientsSb = new StringBuilder();
+
         StringBuilder shouldIngredientsSb = new StringBuilder();
         ingredientsRequest.mustIngredients().forEach( i -> mustIngredientsSb.append(i).append(" "));
         ingredientsRequest.shouldIngredients().forEach( i -> shouldIngredientsSb.append(i).append(" "));
