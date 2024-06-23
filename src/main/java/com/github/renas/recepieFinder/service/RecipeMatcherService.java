@@ -34,6 +34,5 @@ public class RecipeMatcherService {
                         hit.getContent().getIngredients(),
                         hit.getContent().getSteps()))
                 .toList();
-
     }
 }
