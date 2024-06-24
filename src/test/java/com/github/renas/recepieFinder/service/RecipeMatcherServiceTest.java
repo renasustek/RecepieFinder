@@ -67,7 +67,7 @@ class RecipeMatcherServiceTest {
     void whenGivenRequestAndNoRecipeFoundShouldReturnEmptyList() {
         SearchHits<RecipeMapping> searchHits = new SearchHitsImpl<>(
                 1L, TotalHitsRelation.OFF, 10, null, null, Collections.emptyList(), null, null, null);
-        given(elasticsearchRepo.getRecipes(mustIngredientsString, shouldIngredientsString))
+        given(elasticsearchRepo.getRecipes(mustIngredientsString, shouldIngredientsString, mustNotIngredientsString))
                 .willReturn(searchHits);
         assertTrue(recipeMatcherService.recipeSearch(validRequest).isEmpty());
     }
