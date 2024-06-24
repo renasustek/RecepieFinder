@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.renas.recepieFinder.requestBodies.IngredientsRequest;
+import com.github.renas.recepieFinder.requestBodies.FindRecipeRequest;
 import com.github.renas.recepieFinder.requestBodies.Recipe;
 import com.github.renas.recepieFinder.service.RecipeMatcherService;
 import java.util.ArrayList;
@@ -38,10 +38,12 @@ class RecipeMatcherControllerTest {
 
     List<String> mustIngredients = List.of("one", "two");
     List<String> shouldIngredients = List.of("one", "two");
+    List<String> mustNotIngredients = List.of("one", "two");
 
-    IngredientsRequest validRequest = new IngredientsRequest(mustIngredients, shouldIngredients);
+    FindRecipeRequest validRequest = new FindRecipeRequest(mustIngredients, shouldIngredients, mustNotIngredients);
 
-    IngredientsRequest emptyRequest = new IngredientsRequest(Collections.emptyList(), Collections.emptyList());
+    FindRecipeRequest emptyRequest =
+            new FindRecipeRequest(Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
 
     List<String> invalidRequest = List.of("invalidRequest");
 
