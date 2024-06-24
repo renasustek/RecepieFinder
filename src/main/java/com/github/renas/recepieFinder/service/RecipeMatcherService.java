@@ -18,15 +18,20 @@ public class RecipeMatcherService {
     public List<Recipe> recipeSearch(IngredientsRequest ingredientsRequest) {
         StringBuilder mustIngredientsSb = new StringBuilder();
         StringBuilder shouldIngredientsSb = new StringBuilder();
+        StringBuilder mustNotIngredientsSb = new StringBuilder();
         ingredientsRequest
                 .mustIngredients()
                 .forEach(i -> mustIngredientsSb.append(i).append(" "));
         ingredientsRequest
                 .shouldIngredients()
                 .forEach(i -> shouldIngredientsSb.append(i).append(" "));
+        ingredientsRequest
+                .mustNotIngredients()
+                .forEach(i -> mustNotIngredientsSb.append(i).append(" "));
 
         return elasticsearchRepo
-                .getRecipes(mustIngredientsSb.toString(), shouldIngredientsSb.toString())
+                .getRecipes(
+                        mustIngredientsSb.toString(), shouldIngredientsSb.toString(), mustNotIngredientsSb.toString())
                 .getSearchHits()
                 .stream()
                 .map(hit -> new Recipe(
