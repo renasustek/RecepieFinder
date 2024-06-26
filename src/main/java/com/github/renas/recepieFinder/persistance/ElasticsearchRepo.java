@@ -1,6 +1,7 @@
 package com.github.renas.recepieFinder.persistance;
 
 import com.github.renas.recepieFinder.persistance.objectMappings.RecipeMapping;
+import com.github.renas.recepieFinder.requestBodies.Recipe;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -16,9 +17,12 @@ public class ElasticsearchRepo {
         this.elasticsearchOperations = elasticsearchOperations;
     }
 
+    public RecipeMapping addRecipe(RecipeMapping recipe) {
+        return elasticsearchOperations.save(recipe);
+    }
+
     public SearchHits<RecipeMapping> getRecipes(
             String mustIngredients, String shouldIngredients, String mustNotIngredients) {
-
         Query query = NativeQuery.builder()
                 .withQuery(q -> q.bool(b -> b.must(
                                 m -> m.match(ma -> ma.field("ingredients").query(mustIngredients)))

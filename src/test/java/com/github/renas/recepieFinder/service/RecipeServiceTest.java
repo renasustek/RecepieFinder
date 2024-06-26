@@ -23,27 +23,29 @@ import org.springframework.data.elasticsearch.core.SearchHitsImpl;
 import org.springframework.data.elasticsearch.core.TotalHitsRelation;
 
 @ExtendWith(MockitoExtension.class)
-class RecipeMatcherServiceTest {
+class RecipeServiceTest {
 
     @Mock
     public ElasticsearchRepo elasticsearchRepo;
 
     @InjectMocks
-    public RecipeMatcherService recipeMatcherService;
+    public RecipeService recipeMatcherService;
 
     List<String> mustIngredients = List.of("one", "two");
     List<String> shouldIngredients = List.of("one", "two");
     List<String> mustNotIngredients = List.of("one", "two");
-    FindRecipeRequest validRequest = new FindRecipeRequest(mustIngredients, shouldIngredients, mustNotIngredients);
+    FindRecipeRequest validRequest = new FindRecipeRequest(mustIngredients, shouldIngredients, mustNotIngredients, 2);
 
     String name = "Example";
+    String description = "Example description";
+    String serves = "2";
     List<String> ingredients = new ArrayList<>(List.of("one", "two", "three"));
     List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
-    Recipe recipe = new Recipe(name, ingredients, steps);
+    Recipe recipe = new Recipe(name, description,ingredients, steps, serves);
     List<Recipe> recipes = List.of(recipe);
 
     RecipeMapping recipeMapping =
-            new RecipeMapping(UUID.randomUUID(), recipe.name(), "description", recipe.ingredients(), recipe.steps());
+            new RecipeMapping(UUID.randomUUID(), recipe.name(), "description", recipe.ingredients(), recipe.steps(),"2");
     SearchHit<RecipeMapping> searchHit =
             new SearchHit<>(null, null, null, 1.0f, null, null, null, null, null, null, recipeMapping);
     SearchHits<RecipeMapping> searchHits =
