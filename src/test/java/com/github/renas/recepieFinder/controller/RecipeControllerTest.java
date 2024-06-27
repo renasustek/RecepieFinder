@@ -78,4 +78,18 @@ class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]", true));
     }
+
+    @Test
+    void whenValidCreateReturnsRecipe() throws Exception {
+        when(service.addRecipes(recipe)).thenReturn(recipe);
+        mvc.perform(post("/recipe/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(recipe)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(recipe.name()))
+                .andExpect(jsonPath("$.description").value(recipe.description()));
+    }
+//
+//    @Test
+//    void whenInvalidCreateReturn
 }

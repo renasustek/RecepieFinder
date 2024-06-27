@@ -57,7 +57,7 @@ public class RecipeService {
                 .map(hit -> new Recipe(
                         hit.getContent().getName(),
                         hit.getContent().getDescription(),
-                        refactorToFitServing(hit.getContent().getIngredients(), hit.getContent().getServes()),
+                        hit.getContent().getIngredients(),
                         hit.getContent().getSteps(),
                         hit.getContent().getServes()))
                 .toList();
