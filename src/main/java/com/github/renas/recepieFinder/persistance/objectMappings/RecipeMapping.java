@@ -25,12 +25,24 @@ public class RecipeMapping {
     @Field(type = FieldType.Text)
     private List<String> steps;
 
-    public RecipeMapping(UUID id, String name, String description, List<String> ingredients, List<String> steps) {
+    @Field(type = FieldType.Text)
+    private String serves;
+
+    public RecipeMapping(UUID id, String name, String description, List<String> ingredients, List<String> steps, String serves) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.ingredients = ingredients;
         this.steps = steps;
+        this.serves = serves;
+    }
+
+    public String getServes() {
+        return serves;
+    }
+
+    public void setServes(String serves) {
+        this.serves = serves;
     }
 
     public String getName() {
