@@ -12,6 +12,9 @@ val mysqlConnector = "8.0.33"
 val hibernate = "8.0.1.Final"
 val junit = "5.4.0"
 val palantirJavaFormat = "2.47.0"
+val uomLibCommon = "2.0"
+val indriya = "2.0.3"
+
 group = "com.github.renas"
 
 version = "0.0.1-SNAPSHOT"
@@ -36,6 +39,8 @@ dependencies {
 	implementation("mysql:mysql-connector-java:$mysqlConnector")
 	implementation("org.hibernate.validator:hibernate-validator:$hibernate")
 	implementation("org.hibernate:hibernate-validator:$hibernate")
+	implementation("tech.uom.lib:uom-lib-common:$uomLibCommon")
+	implementation("tech.units:indriya:$indriya")
 
 	testImplementation("org.junit.jupiter:junit-jupiter:$junit")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

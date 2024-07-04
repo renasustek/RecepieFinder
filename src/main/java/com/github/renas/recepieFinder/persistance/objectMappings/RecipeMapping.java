@@ -1,5 +1,6 @@
 package com.github.renas.recepieFinder.persistance.objectMappings;
 
+import com.github.renas.recepieFinder.requestBodies.ingredient.Ingredient;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -20,7 +21,7 @@ public class RecipeMapping {
     private String description;
 
     @Field(type = FieldType.Text)
-    private List<String> ingredients;
+    private List<Ingredient<?>> ingredients;
 
     @Field(type = FieldType.Text)
     private List<String> steps;
@@ -28,7 +29,7 @@ public class RecipeMapping {
     @Field(type = FieldType.Text)
     private String serves;
 
-    public RecipeMapping(UUID id, String name, String description, List<String> ingredients, List<String> steps, String serves) {
+    public RecipeMapping(UUID id, String name, String description, List<Ingredient<?>> ingredients, List<String> steps, String serves) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -61,11 +62,11 @@ public class RecipeMapping {
         this.description = description;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient<?>> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient<?>> ingredients) {
         this.ingredients = ingredients;
     }
 

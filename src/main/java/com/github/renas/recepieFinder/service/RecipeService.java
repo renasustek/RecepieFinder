@@ -63,12 +63,4 @@ public class RecipeService {
                 .toList();
     }
 
-    private List<String> refactorToFitServing(List<String> ingredients, String currentRecipeServes) {
-        int serves = Integer.parseInt(currentRecipeServes);
-        for (String ingredient : ingredients) {
-
-        }
-
-        return ingredients;
-    }
 }
