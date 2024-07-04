@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+
+import com.github.renas.recepieFinder.requestBodies.ingredient.Ingredient;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,7 +41,7 @@ class RecipeServiceTest {
     String name = "Example";
     String description = "Example description";
     String serves = "2";
-    List<String> ingredients = new ArrayList<>(List.of("one", "two", "three"));
+    List<Ingredient<?>>  ingredients = Collections.emptyList();
     List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
     Recipe recipe = new Recipe(name, description,ingredients, steps, serves);
     List<Recipe> recipes = List.of(recipe);

@@ -16,4 +16,20 @@ public class Ingredient <Q extends Quantity<Q>>{
         this.name = name;
         this.quantity = quantity;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Quantity<Q> getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Quantity<Q> quantity) {
+        this.quantity = quantity;
+    }
 }

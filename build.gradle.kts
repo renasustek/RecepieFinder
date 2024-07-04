@@ -14,6 +14,7 @@ val junit = "5.4.0"
 val palantirJavaFormat = "2.47.0"
 val uomLibCommon = "2.0"
 val indriya = "2.0.3"
+val assertJ = "3.12.2"
 
 group = "com.github.renas"
 
@@ -28,7 +29,6 @@ java {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
 
 	implementation(platform("org.springframework.boot:spring-boot-dependencies:$springDependencies"))
@@ -45,6 +45,7 @@ dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter:$junit")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+	testImplementation("org.assertj:assertj-core:$assertJ")
 }
 
 

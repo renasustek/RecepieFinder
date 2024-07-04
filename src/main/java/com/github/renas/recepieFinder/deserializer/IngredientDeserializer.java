@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.renas.recepieFinder.requestBodies.ingredient.Ingredient;
 import tech.units.indriya.quantity.Quantities;
@@ -21,8 +22,12 @@ public class IngredientDeserializer extends JsonDeserializer<Ingredient> {
         String unitOfMeasurement = node.get("unitOfMeasurement").asText().trim();
         String name = node.get("name").asText();
 
-
-        return new Ingredient(Quantities.getQuantity(quantity, getUnit(unitOfMeasurement)), name);
+        Unit<?> findUnit = getUnit(unitOfMeasurement);
+        if (findUnit == null){
+            throw new JsonMappingException("error deserializing unit");
+        }else {
+            return new Ingredient(Quantities.getQuantity(quantity, findUnit), name);
+        }
     }
 
 
