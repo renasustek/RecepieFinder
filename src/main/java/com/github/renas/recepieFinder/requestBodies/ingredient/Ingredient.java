@@ -17,6 +17,7 @@ public class Ingredient <Q extends Quantity<Q>>{
         this.quantity = quantity;
     }
 
+
     public String getName() {
         return name;
     }

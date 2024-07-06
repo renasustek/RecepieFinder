@@ -2,6 +2,7 @@ package com.github.renas.recepieFinder.persistance;
 
 import com.github.renas.recepieFinder.persistance.objectMappings.RecipeMapping;
 import com.github.renas.recepieFinder.requestBodies.Recipe;
+import com.github.renas.recepieFinder.requestBodies.ingredient.Ingredient;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;

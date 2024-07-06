@@ -1,4 +1,4 @@
-package com.github.renas.recepieFinder.deserializer;
+package com.github.renas.recepieFinder.serializerAndDeserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
