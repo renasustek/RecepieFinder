@@ -1,14 +1,14 @@
-package com.github.renas.recepieFinder.controller;
+package com.github.renas.recipe.controller;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.renas.recepieFinder.requestBodies.FindRecipeRequest;
-import com.github.renas.recepieFinder.requestBodies.Recipe;
-import com.github.renas.recepieFinder.requestBodies.ingredient.Ingredient;
-import com.github.renas.recepieFinder.service.RecipeService;
+import com.github.renas.recipe.request.FindRecipeRequest;
+import com.github.renas.recipe.request.Recipe;
+import com.github.renas.recipe.request.ingredient.Ingredient;
+import com.github.renas.recipe.service.RecipeService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,9 +34,9 @@ class RecipeControllerTest {
     String name = "Example";
     String description = "Example description";
     String serves = "2";
-    List<Ingredient<?>>  ingredients = Collections.emptyList();
+    List<Ingredient<?>> ingredients = Collections.emptyList();
     List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
-    Recipe recipe = new Recipe(name, description,ingredients, steps, serves);
+    Recipe recipe = new Recipe(name, description, ingredients, steps, serves);
     List<Recipe> recipes = List.of(recipe);
 
     List<String> mustIngredients = List.of("one", "two");
@@ -84,13 +84,13 @@ class RecipeControllerTest {
     void whenValidCreateReturnsRecipe() throws Exception {
         when(service.addRecipes(recipe)).thenReturn(recipe);
         mvc.perform(post("/recipe/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(recipe)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(recipe)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(recipe.name()))
                 .andExpect(jsonPath("$.description").value(recipe.description()));
     }
-//
-//    @Test
-//    void whenInvalidCreateReturn
+    //
+    //    @Test
+    //    void whenInvalidCreateReturn
 }

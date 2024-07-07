@@ -1,19 +1,18 @@
-package com.github.renas.recepieFinder.service;
+package com.github.renas.recipe.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 
-import com.github.renas.recepieFinder.persistance.ElasticsearchRepo;
-import com.github.renas.recepieFinder.persistance.objectMappings.RecipeMapping;
-import com.github.renas.recepieFinder.requestBodies.FindRecipeRequest;
-import com.github.renas.recepieFinder.requestBodies.Recipe;
+import com.github.renas.recipe.persistance.ElasticsearchRepo;
+import com.github.renas.recipe.persistance.objectMappings.RecipeMapping;
+import com.github.renas.recipe.request.FindRecipeRequest;
+import com.github.renas.recipe.request.Recipe;
+import com.github.renas.recipe.request.ingredient.Ingredient;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
-import com.github.renas.recepieFinder.requestBodies.ingredient.Ingredient;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,13 +40,13 @@ class RecipeServiceTest {
     String name = "Example";
     String description = "Example description";
     String serves = "2";
-    List<Ingredient<?>>  ingredients = Collections.emptyList();
+    List<Ingredient<?>> ingredients = Collections.emptyList();
     List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
-    Recipe recipe = new Recipe(name, description,ingredients, steps, serves);
+    Recipe recipe = new Recipe(name, description, ingredients, steps, serves);
     List<Recipe> recipes = List.of(recipe);
 
-    RecipeMapping recipeMapping =
-            new RecipeMapping(UUID.randomUUID(), recipe.name(), "description", recipe.ingredients(), recipe.steps(),"2");
+    RecipeMapping recipeMapping = new RecipeMapping(
+            UUID.randomUUID(), recipe.name(), "description", recipe.ingredients(), recipe.steps(), "2");
     SearchHit<RecipeMapping> searchHit =
             new SearchHit<>(null, null, null, 1.0f, null, null, null, null, null, null, recipeMapping);
     SearchHits<RecipeMapping> searchHits =

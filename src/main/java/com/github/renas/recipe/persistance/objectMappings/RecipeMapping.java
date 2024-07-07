@@ -1,13 +1,12 @@
-package com.github.renas.recepieFinder.persistance.objectMappings;
+package com.github.renas.recipe.persistance.objectMappings;
 
-import com.github.renas.recepieFinder.requestBodies.ingredient.Ingredient;
+import com.github.renas.recipe.request.ingredient.Ingredient;
+import java.util.List;
+import java.util.UUID;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
-
-import java.util.List;
-import java.util.UUID;
 
 @Document(indexName = "sample")
 public class RecipeMapping {
@@ -29,7 +28,13 @@ public class RecipeMapping {
     @Field(type = FieldType.Text)
     private String serves;
 
-    public RecipeMapping(UUID id, String name, String description, List<Ingredient<?>> ingredients, List<String> steps, String serves) {
+    public RecipeMapping(
+            UUID id,
+            String name,
+            String description,
+            List<Ingredient<?>> ingredients,
+            List<String> steps,
+            String serves) {
         this.id = id;
         this.name = name;
         this.description = description;

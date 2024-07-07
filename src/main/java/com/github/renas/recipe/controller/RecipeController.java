@@ -1,9 +1,8 @@
-package com.github.renas.recepieFinder.controller;
+package com.github.renas.recipe.controller;
 
-import com.github.renas.recepieFinder.persistance.objectMappings.RecipeMapping;
-import com.github.renas.recepieFinder.requestBodies.FindRecipeRequest;
-import com.github.renas.recepieFinder.requestBodies.Recipe;
-import com.github.renas.recepieFinder.service.RecipeService;
+import com.github.renas.recipe.request.FindRecipeRequest;
+import com.github.renas.recipe.request.Recipe;
+import com.github.renas.recipe.service.RecipeService;
 import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +26,5 @@ public class RecipeController {
     @PostMapping("/create")
     public Recipe addRecipe(@RequestBody Recipe recipe) {
         return ingredientsService.addRecipes(recipe);
-
     }
 }

@@ -1,8 +1,6 @@
-package com.github.renas.recepieFinder.persistance;
+package com.github.renas.recipe.persistance;
 
-import com.github.renas.recepieFinder.persistance.objectMappings.RecipeMapping;
-import com.github.renas.recepieFinder.requestBodies.Recipe;
-import com.github.renas.recepieFinder.requestBodies.ingredient.Ingredient;
+import com.github.renas.recipe.persistance.objectMappings.RecipeMapping;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;

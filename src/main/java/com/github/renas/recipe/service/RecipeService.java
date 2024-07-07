@@ -1,12 +1,11 @@
-package com.github.renas.recepieFinder.service;
+package com.github.renas.recipe.service;
 
-import com.github.renas.recepieFinder.persistance.ElasticsearchRepo;
-import com.github.renas.recepieFinder.persistance.objectMappings.RecipeMapping;
-import com.github.renas.recepieFinder.requestBodies.FindRecipeRequest;
-import com.github.renas.recepieFinder.requestBodies.Recipe;
+import com.github.renas.recipe.persistance.ElasticsearchRepo;
+import com.github.renas.recipe.persistance.objectMappings.RecipeMapping;
+import com.github.renas.recipe.request.FindRecipeRequest;
+import com.github.renas.recipe.request.Recipe;
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,11 +27,14 @@ public class RecipeService {
                 recipe.description(),
                 recipe.ingredients(),
                 recipe.steps(),
-                recipe.serves()
-        ));
-        return new Recipe(recipeMapping.getName(),recipeMapping.getDescription(),recipeMapping.getIngredients(),recipeMapping.getSteps(),recipeMapping.getServes());
+                recipe.serves()));
+        return new Recipe(
+                recipeMapping.getName(),
+                recipeMapping.getDescription(),
+                recipeMapping.getIngredients(),
+                recipeMapping.getSteps(),
+                recipeMapping.getServes());
     }
-
 
     public List<Recipe> recipeSearch(FindRecipeRequest findRecipeRequest) {
         StringBuilder mustIngredientsSb = new StringBuilder();
@@ -62,5 +64,4 @@ public class RecipeService {
                         hit.getContent().getServes()))
                 .toList();
     }
-
 }

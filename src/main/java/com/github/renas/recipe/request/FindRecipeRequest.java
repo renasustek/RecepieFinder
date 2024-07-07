@@ -1,4 +1,4 @@
-package com.github.renas.recepieFinder.requestBodies;
+package com.github.renas.recipe.request;
 
 import java.util.List;
 
