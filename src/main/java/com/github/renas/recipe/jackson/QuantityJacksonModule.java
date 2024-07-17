@@ -6,10 +6,8 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import tech.units.indriya.unit.Units;
-
-import javax.measure.Quantity;
-import javax.measure.Unit;
+import com.github.renas.recipe.measurment.Quantity;
+import com.github.renas.recipe.measurment.Unit;
 import java.io.IOException;
 import java.io.Serial;
 
@@ -44,14 +42,14 @@ public class QuantityJacksonModule extends SimpleModule {
                     jsonParser, String.class, JsonToken.VALUE_STRING, "Expected unit value in String format");
         }
 
-        private static Unit<?> parse(JsonParser jp, String unitString) throws JsonParseException {
+        private static Unit parse(JsonParser jp, String unitString) throws JsonParseException {
             return switch (unitString.toLowerCase()) {
-                case "g", "gram", "grams" -> Units.GRAM;
-                case "kg", "kilogram", "kilograms" -> Units.KILOGRAM;
-                case "ml", "millilitre", "millilitres" -> Units.LITRE.divide(1000);
-                case "l", "litre", "litres" -> Units.LITRE;
-                case "tbsp", "tablespoon", "tablespoons" -> Units.LITRE.multiply(
-                        ((double) 15 / 1000)); // Example: 1 tbsp = 15 ml
+                case "g", "gram", "grams" -> Unit.GRAM;
+                case "kg", "kilogram", "kilograms" -> Unit.KILOGRAM;
+                case "ml", "millilitre", "millilitres" -> Unit.MILLILITER;
+                case "l", "litre", "litres" -> Unit.LITER;
+                case "tbsp", "tablespoon", "tablespoons" -> Unit.TABLESPOON;
+                //todo add teaspoon and more values
                 default -> throw new JsonParseException(jp, "error deserializing unit.");
             };
         }

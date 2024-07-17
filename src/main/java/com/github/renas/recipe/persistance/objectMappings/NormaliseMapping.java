@@ -1,17 +1,16 @@
 package com.github.renas.recipe.persistance.objectMappings;
 
 import com.github.renas.recipe.request.ingredient.Ingredient;
-
-import java.util.List;
-import java.util.UUID;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "sample5")
-public class RecipeMapping {
+import java.util.List;
+import java.util.UUID;
+
+@Document(indexName = "sample")
+public class NormaliseMapping {
     @Id
     private UUID id;
 
@@ -21,8 +20,8 @@ public class RecipeMapping {
     @Field(type = FieldType.Text)
     private String description;
 
-    @Field(type = FieldType.Nested, includeInParent = true)
-    private List<Ingredient<?>> ingredients;
+    @Field(type = FieldType.Text)
+    private List<String> ingredients;
 
     @Field(type = FieldType.Text)
     private List<String> steps;
@@ -30,11 +29,11 @@ public class RecipeMapping {
     @Field(type = FieldType.Text)
     private String serves;
 
-    public RecipeMapping(
+    public NormaliseMapping(
             UUID id,
             String name,
             String description,
-            List<Ingredient<?>> ingredients,
+            List<String> ingredients,
             List<String> steps,
             String serves) {
         this.id = id;
@@ -69,11 +68,11 @@ public class RecipeMapping {
         this.description = description;
     }
 
-    public List<Ingredient<?>> getIngredients() {
+    public List<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient<?>> ingredients) {
+    public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 

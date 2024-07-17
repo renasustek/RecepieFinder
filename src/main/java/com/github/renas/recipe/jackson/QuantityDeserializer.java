@@ -6,11 +6,14 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.github.renas.recipe.measurment.Mass;
+import com.github.renas.recipe.measurment.Quantity;
+import com.github.renas.recipe.measurment.Unit;
+import com.github.renas.recipe.measurment.Volume;
+
 import java.io.IOException;
 import java.math.BigDecimal;
-import javax.measure.Quantity;
-import javax.measure.Unit;
-import tech.units.indriya.quantity.Quantities;
+
 
 @SuppressWarnings("rawtypes")
 public class QuantityDeserializer extends StdDeserializer<Quantity> {
@@ -30,9 +33,11 @@ public class QuantityDeserializer extends StdDeserializer<Quantity> {
         }
 
         ObjectCodec codec = jp.getCodec();
-        BigDecimal value = codec.treeToValue(root.get("value"), BigDecimal.class);
-        Unit<?> unit = codec.treeToValue(root.get("unit"), Unit.class);
-
-        return Quantities.getQuantity(value, unit);
+        Integer value = codec.treeToValue(root.get("value"), Integer.class);
+        Unit unit = codec.treeToValue(root.get("unit"), Unit.class);
+        return switch (unit){
+            case KILOGRAM,GRAM -> new Mass(value, unit);
+            case MILLILITER, LITER, TABLESPOON -> new Volume(value, unit);
+        };
     }
 }
