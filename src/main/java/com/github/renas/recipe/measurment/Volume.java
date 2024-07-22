@@ -1,6 +1,6 @@
 package com.github.renas.recipe.measurment;
 
-public class Volume implements Quantity<Volume>{
+public class Volume implements Quantity{
 
     public final int value;
 

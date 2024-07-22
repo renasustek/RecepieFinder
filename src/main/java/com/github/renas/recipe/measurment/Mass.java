@@ -1,6 +1,6 @@
 package com.github.renas.recipe.measurment;
 
-public class Mass implements Quantity<Mass> {
+public class Mass implements Quantity {
 
     public final int value;
 

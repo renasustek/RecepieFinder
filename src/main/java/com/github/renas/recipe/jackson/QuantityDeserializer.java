@@ -38,6 +38,7 @@ public class QuantityDeserializer extends StdDeserializer<Quantity> {
         return switch (unit){
             case KILOGRAM,GRAM -> new Mass(value, unit);
             case MILLILITER, LITER, TABLESPOON -> new Volume(value, unit);
+            case null, default -> null;
         };
     }
 }

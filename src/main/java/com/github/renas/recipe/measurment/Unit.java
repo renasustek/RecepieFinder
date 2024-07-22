@@ -5,8 +5,8 @@ public enum Unit {
     KILOGRAM("kilogram"),
     MILLILITER("milliliter"),
     LITER("liter"),
-    TABLESPOON("tablespoon");
-
+    TABLESPOON("tablespoon"),
+    NOUNIT("n/a");
     private final String name;
 
     Unit(String name) {

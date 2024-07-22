@@ -6,15 +6,15 @@ import com.github.renas.recipe.measurment.Quantity;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-public class Ingredient<T extends Quantity<T>> {
+public class Ingredient<T extends Quantity> {
     @Field(type = FieldType.Text)
     String name;
 
     @Field(type = FieldType.Nested, includeInParent = true)
-    Quantity<T> quantity;
+    T quantity;
 
     @JsonCreator
-    public Ingredient(@JsonProperty("quantity") Quantity<T> quantity, @JsonProperty("name") String name) {
+    public Ingredient(@JsonProperty("quantity") T quantity, @JsonProperty("name") String name) {
         this.name = name;
         this.quantity = quantity;
     }

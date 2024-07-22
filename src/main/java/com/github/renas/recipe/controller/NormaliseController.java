@@ -21,7 +21,7 @@ public class NormaliseController {
     }
 
     @PostMapping
-    public List<TesterRecipe> getRecipes() {
+    public List<Recipe> getRecipes() {
         return normaliseService.normalise();
     }
 

@@ -3,6 +3,7 @@ package com.github.renas.recipe.service;
 import com.github.renas.recipe.persistance.ElasticsearchRepo;
 import com.github.renas.recipe.request.Recipe;
 import com.github.renas.recipe.request.TesterRecipe;
+import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,21 +14,29 @@ public class NormaliseService {
 
     private final ElasticsearchRepo elasticsearchRepo;
 
-    public NormaliseService(ElasticsearchRepo elasticsearchRepo) {
+    private final RecipeService recipeService;
+
+
+    public NormaliseService(ElasticsearchRepo elasticsearchRepo, RecipeService recipeService) {
         this.elasticsearchRepo = elasticsearchRepo;
+        this.recipeService = recipeService;
     }
 
-    public List<TesterRecipe> normalise() {
-        return elasticsearchRepo
+    public List<Recipe> normalise() {
+       return elasticsearchRepo
                 .getAllRecipes()
                 .getSearchHits()
                 .stream()
-                .map(hit -> new TesterRecipe(
-                        hit.getContent().getName(),
-                        hit.getContent().getDescription(),
-                        hit.getContent().getIngredients(),
-                        hit.getContent().getSteps(),
-                        hit.getContent().getServes()))
+               .map(SearchHit::getContent)
+                .map(content -> new Recipe(
+                        content.getName(),
+                        content.getDescription(),
+                        content.getIngredients().stream().map(
+                                ingredient -> StructureIngredients.stringToQuantity(ingredient)
+                        ).toList(),
+                        content.getSteps(),
+                        content.getServes()))
                 .toList();
+
     }
 }

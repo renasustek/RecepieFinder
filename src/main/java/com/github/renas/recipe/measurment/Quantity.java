@@ -1,6 +1,6 @@
 package com.github.renas.recipe.measurment;
 
-public interface Quantity<Q extends Quantity<Q>> {
+public interface Quantity {
     int getValue();
 
     Unit getUnit();
