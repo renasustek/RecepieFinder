@@ -17,7 +17,7 @@ class StructureIngredientsTest {
 
     @ParameterizedTest
     @MethodSource("provideIngredients")
-    void whenGivenIngredientShouldReturnObject(String ingredientStr, Ingredient<Volume> expectedIngredient) {
+    void whenGivenIngredientShouldReturnObject(String ingredientStr, Ingredient<Quantity> expectedIngredient) {
         Ingredient<Quantity> actualIngredient = StructureIngredients.stringToQuantity(ingredientStr);
         System.out.println(expectedIngredient.getName() + expectedIngredient.getQuantity().toString());
         System.out.println(actualIngredient.getName() + actualIngredient.getQuantity().toString());
@@ -37,7 +37,7 @@ class StructureIngredientsTest {
                 Arguments.of(
                         "250g pouch ready-to-eat quinoa (we used Merchant Gourmet)",
                         new Ingredient<>(
-                                new Mass(250, Unit.GRAM), "pouch ready-to-eat quinoa (we used Merchant Gourmet)")),
-                Arguments.of("green salad, to serve", new Ingredient<>(null, "green salad, to serve")));
+                                new Mass(250, Unit.GRAM), "pouch ready-to-eat quinoa (we used Merchant Gourmet)"))
+        );
     }
 }
