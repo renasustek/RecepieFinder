@@ -6,6 +6,7 @@ public enum Unit {
     MILLILITER("milliliter"),
     LITER("liter"),
     TABLESPOON("tablespoon"),
+    TEASPOON("teaspoon"),
     NOUNIT("n/a");
     private final String name;
 

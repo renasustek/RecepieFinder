@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 
+import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.persistance.ElasticsearchRepo;
 import com.github.renas.recipe.persistance.objectMappings.RecipeMapping;
 import com.github.renas.recipe.request.FindRecipeRequest;
@@ -40,7 +41,7 @@ class RecipeServiceTest {
     String name = "Example";
     String description = "Example description";
     String serves = "2";
-    List<Ingredient<?>> ingredients = Collections.emptyList();
+    List<Ingredient<Quantity>> ingredients = Collections.emptyList();
     List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
     Recipe recipe = new Recipe(name, description, ingredients, steps, serves);
     List<Recipe> recipes = List.of(recipe);

@@ -7,7 +7,7 @@ import java.util.List;
 public record Recipe(
         String name,
         String description,
-        List<Ingredient<? extends Quantity>> ingredients,
+        List<Ingredient<Quantity>> ingredients,
         List<String> steps,
         String serves)
 {}

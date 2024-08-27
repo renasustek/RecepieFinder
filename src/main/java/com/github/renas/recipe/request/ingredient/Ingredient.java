@@ -27,5 +27,11 @@ public class Ingredient<T extends Quantity> {
         this.name = name;
     }
 
+    public T getQuantity() {
+        return quantity;
+    }
 
+    public void setQuantity(T quantity) {
+        this.quantity = quantity;
+    }
 }

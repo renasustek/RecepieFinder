@@ -7,6 +7,8 @@ import com.github.renas.recipe.measurment.Volume;
 import com.github.renas.recipe.request.ingredient.Ingredient;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,29 +23,88 @@ public class StructureIngredients {
     //        this.ingredient = ingredient;
     //    }
 
-    public static Ingredient<? extends Quantity> stringToQuantity(String ingredient) {
-        String regex = "(\\d+/?\\d*|½|\\d+\\.\\d+)\\s*(\\w+(?:\\s*\\w+)*)\\s*(.+)";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(ingredient);
-        if (matcher.find()) {
-            int value = Integer.parseInt(matcher.group(1));
-            String regexUnit = matcher.group(2);
-            String ingredientName = matcher.group(3);
+//    public static <T extends Quantity> Ingredient<T> stringToQuantity(String ingredient) {
+//        String regex = "(\\d+\\s?\\d*/?\\d*)?\\s*(\\w+)?\\s*(.+)";
+//        Pattern pattern = Pattern.compile(regex);
+//        Matcher matcher = pattern.matcher(ingredient);
+//        if (matcher.find()) {
+//            double value = parseQuantity(matcher.group(1));
+//            String regexUnit = matcher.group(2);
+//            String ingredientName = matcher.group(3);
+//
+//
+//            return new Ingredient<>(parse(regexUnit, value), ingredientName);
+//        }
+//        return null;
+//    }
+//
+//
+//    private static double parseQuantity(String quantityStr){
+//       if (quantityStr.contains("/")) {
+//            String[] parts = quantityStr.split("/");
+//            return Double.parseDouble(parts[0]) / Double.parseDouble(parts[1]);
+//        } else {
+//            return Double.parseDouble(quantityStr);
+//        }
+//    }
+
+    public static <T extends Quantity> Ingredient<T> stringToQuantity(String ingredient) {
+        ArrayList<String> units = new ArrayList<>(List.of(
+                "g",
+                "gram",
+                "kg",
+                "kilogram",
+                "ml",
+                "millilitre",
+
+                "litre",
+                "tablespoon",
+                "tbsp",
+                "teaspoon",
+                "tsp"
+        ));
 
 
-            return new Ingredient<>(parse(regexUnit, value), ingredientName);
+        String unitFound = null;
+        int unitIndex = -1;
+
+        for (String unit : units) {
+            unitIndex = ingredient.indexOf(unit);
+            if (unitIndex != -1) {
+                unitFound = unit;
+                break;
+            }
         }
-        return null;
+
+        if (unitFound == null) {
+            return null;
+        }
+
+        double amount;
+        try {
+            amount = Double.parseDouble(ingredient.substring(0, unitIndex).trim());
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        String name = ingredient.substring(unitIndex + unitFound.length()).trim();
+
+        return new Ingredient<>(parse(unitFound, amount), name);
+
+    }
+
+    private static Double amountParser(String amount) {
+        return Double.parseDouble(amount);
     }
 
     @SuppressWarnings("unchecked")
-    private static <T extends Quantity> T parse(String unit, int value) {
+    private static <T extends Quantity> T parse(String unit, double value) {
         return switch (unit) {
             case "g", "gram", "grams" -> (T) new Mass(value, GRAM) ;
             case "kg", "kilogram", "kilograms" -> (T) new Mass(value, KILOGRAM);
             case "ml", "millilitre", "millilitres" -> (T) new Volume(value, MILLILITER);
             case "l", "litre", "litres" -> (T) new Volume(value, LITER);
             case "tbsp", "tablespoon", "tablespoons" -> (T) new Volume(value, TABLESPOON);
+            case "tsp", "teaspoon", "teaspoons" -> (T) new Volume(value, TEASPOON);
             default -> null;
         };
     }

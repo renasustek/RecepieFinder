@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.request.FindRecipeRequest;
 import com.github.renas.recipe.request.Recipe;
 import com.github.renas.recipe.request.ingredient.Ingredient;
@@ -34,7 +35,7 @@ class RecipeControllerTest {
     String name = "Example";
     String description = "Example description";
     String serves = "2";
-    List<Ingredient<?>> ingredients = Collections.emptyList();
+    List<Ingredient<Quantity>> ingredients = Collections.emptyList();
     List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
     Recipe recipe = new Recipe(name, description, ingredients, steps, serves);
     List<Recipe> recipes = List.of(recipe);

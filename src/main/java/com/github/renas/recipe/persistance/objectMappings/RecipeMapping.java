@@ -1,5 +1,6 @@
 package com.github.renas.recipe.persistance.objectMappings;
 
+import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.request.ingredient.Ingredient;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class RecipeMapping {
     private String description;
 
     @Field(type = FieldType.Nested, includeInParent = true)
-    private List<Ingredient<?>> ingredients;
+    private List<Ingredient<Quantity>> ingredients;
 
     @Field(type = FieldType.Text)
     private List<String> steps;
@@ -34,7 +35,7 @@ public class RecipeMapping {
             UUID id,
             String name,
             String description,
-            List<Ingredient<?>> ingredients,
+            List<Ingredient<Quantity>> ingredients,
             List<String> steps,
             String serves) {
         this.id = id;
@@ -69,11 +70,11 @@ public class RecipeMapping {
         this.description = description;
     }
 
-    public List<Ingredient<?>> getIngredients() {
+    public List<Ingredient<Quantity>> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient<?>> ingredients) {
+    public void setIngredients(List<Ingredient<Quantity>> ingredients) {
         this.ingredients = ingredients;
     }
 

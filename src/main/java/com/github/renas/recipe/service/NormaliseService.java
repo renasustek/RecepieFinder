@@ -32,7 +32,7 @@ public class NormaliseService {
                         content.getName(),
                         content.getDescription(),
                         content.getIngredients().stream().map(
-                                ingredient -> StructureIngredients.stringToQuantity(ingredient)
+                                StructureIngredients::stringToQuantity
                         ).toList(),
                         content.getSteps(),
                         content.getServes()))
