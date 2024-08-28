@@ -1,13 +1,10 @@
 package com.github.renas.recipe.controller;
 
 import com.github.renas.recipe.request.Recipe;
-import com.github.renas.recipe.request.TesterRecipe;
 import com.github.renas.recipe.service.NormaliseService;
-import com.github.renas.recipe.service.RecipeService;
+import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -24,5 +21,4 @@ public class NormaliseController {
     public List<Recipe> getRecipes() {
         return normaliseService.normalise();
     }
-
 }

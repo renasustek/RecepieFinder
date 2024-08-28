@@ -20,9 +20,7 @@ public class QuantityJacksonModule extends SimpleModule {
 
     @SuppressWarnings("rawtypes")
     private static class UnitJsonDeserializer extends StdScalarDeserializer<Unit> {
-        /**
-         *
-         */
+        /** */
         @Serial
         private static final long serialVersionUID = -6327531740958676293L;
 
@@ -49,7 +47,7 @@ public class QuantityJacksonModule extends SimpleModule {
                 case "ml", "millilitre", "millilitres" -> Unit.MILLILITER;
                 case "l", "litre", "litres" -> Unit.LITER;
                 case "tbsp", "tablespoon", "tablespoons" -> Unit.TABLESPOON;
-                //todo add teaspoon and more values
+                case "tsp", "teaspoon", "teaspoons" -> Unit.TEASPOON;
                 default -> throw new JsonParseException(jp, "error deserializing unit.");
             };
         }

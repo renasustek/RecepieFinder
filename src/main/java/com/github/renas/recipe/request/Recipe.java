@@ -5,9 +5,4 @@ import com.github.renas.recipe.request.ingredient.Ingredient;
 import java.util.List;
 
 public record Recipe(
-        String name,
-        String description,
-        List<Ingredient<Quantity>> ingredients,
-        List<String> steps,
-        String serves)
-{}
+        String name, String description, List<Ingredient<Quantity>> ingredients, List<String> steps, String serves) {}

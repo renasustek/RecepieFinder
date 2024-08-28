@@ -1,22 +1,22 @@
-//package com.github.renas.recipe.jackson;
+// package com.github.renas.recipe.jackson;
 //
-//import static org.assertj.core.api.Assertions.*;
-//import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+// import static org.assertj.core.api.Assertions.*;
+// import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 //
-//import com.fasterxml.jackson.core.JsonProcessingException;
-//import com.fasterxml.jackson.databind.JsonMappingException;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.github.renas.recipe.request.ingredient.Ingredient;
-//import javax.measure.Quantity;
-//import javax.measure.quantity.Mass;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import tech.units.indriya.quantity.Quantities;
-//import tech.units.indriya.unit.Units;
+// import com.fasterxml.jackson.core.JsonProcessingException;
+// import com.fasterxml.jackson.databind.JsonMappingException;
+// import com.fasterxml.jackson.databind.ObjectMapper;
+// import com.github.renas.recipe.request.ingredient.Ingredient;
+// import javax.measure.Quantity;
+// import javax.measure.quantity.Mass;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import tech.units.indriya.quantity.Quantities;
+// import tech.units.indriya.unit.Units;
 //
-//@SpringBootTest
-//class QuantityJacksonTest {
+// @SpringBootTest
+// class QuantityJacksonTest {
 //
 //    private ObjectMapper objectMapper;
 //
@@ -72,4 +72,4 @@
 //        String expectedJson = "{\"quantity\":{\"quantity\":\"10\",\"unit\":\"g\"},\"name\":\"Sugar\"}";
 //        assertThat(json).isEqualTo(expectedJson);
 //    }
-//}
+// }

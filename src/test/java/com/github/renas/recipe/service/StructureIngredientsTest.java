@@ -1,17 +1,16 @@
 package com.github.renas.recipe.service;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import com.github.renas.recipe.measurment.Mass;
 import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.measurment.Unit;
 import com.github.renas.recipe.measurment.Volume;
 import com.github.renas.recipe.request.ingredient.Ingredient;
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class StructureIngredientsTest {
 
@@ -19,10 +18,11 @@ class StructureIngredientsTest {
     @MethodSource("provideIngredients")
     void whenGivenIngredientShouldReturnObject(String ingredientStr, Ingredient<Quantity> expectedIngredient) {
         Ingredient<Quantity> actualIngredient = StructureIngredients.stringToQuantity(ingredientStr);
-        System.out.println(expectedIngredient.getName() + expectedIngredient.getQuantity().toString());
-        System.out.println(actualIngredient.getName() + actualIngredient.getQuantity().toString());
-        assertThat(actualIngredient.getName())
-                .isEqualTo(expectedIngredient.getName());
+        System.out.println(
+                expectedIngredient.getName() + expectedIngredient.getQuantity().toString());
+        System.out.println(
+                actualIngredient.getName() + actualIngredient.getQuantity().toString());
+        assertThat(actualIngredient.getName()).isEqualTo(expectedIngredient.getName());
         assertThat(actualIngredient.getQuantity().getUnit())
                 .isEqualTo(expectedIngredient.getQuantity().getUnit());
         assertThat(actualIngredient.getQuantity().getValue())
@@ -37,7 +37,6 @@ class StructureIngredientsTest {
                 Arguments.of(
                         "250g pouch ready-to-eat quinoa (we used Merchant Gourmet)",
                         new Ingredient<>(
-                                new Mass(250, Unit.GRAM), "pouch ready-to-eat quinoa (we used Merchant Gourmet)"))
-        );
+                                new Mass(250, Unit.GRAM), "pouch ready-to-eat quinoa (we used Merchant Gourmet)")));
     }
 }

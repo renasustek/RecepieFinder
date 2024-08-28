@@ -6,7 +6,7 @@ public class Mass implements Quantity {
 
     public final Unit unit;
 
-    public Mass(double value, Unit unit){
+    public Mass(double value, Unit unit) {
 
         this.value = value;
         this.unit = unit;
@@ -24,9 +24,6 @@ public class Mass implements Quantity {
 
     @Override
     public String toString() {
-        return "Mass{" +
-                "value=" + value +
-                ", unit=" + unit +
-                '}';
+        return "Mass{" + "value=" + value + ", unit=" + unit + '}';
     }
 }

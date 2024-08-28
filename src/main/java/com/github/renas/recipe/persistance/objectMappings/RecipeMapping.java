@@ -2,10 +2,8 @@ package com.github.renas.recipe.persistance.objectMappings;
 
 import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.request.ingredient.Ingredient;
-
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;

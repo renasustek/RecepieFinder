@@ -7,7 +7,6 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Component;
-import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 
 @Component
 public class ElasticsearchRepo {
@@ -22,23 +21,21 @@ public class ElasticsearchRepo {
         return elasticsearchOperations.save(recipe);
     }
 
-    public SearchHits<NormaliseMapping> getAllRecipes(){
-        Query query = NativeQuery.builder()
-                .withQuery(q -> q.matchAll(ma -> ma))
-                .build();
+    public SearchHits<NormaliseMapping> getAllRecipes() {
+        Query query = NativeQuery.builder().withQuery(q -> q.matchAll(ma -> ma)).build();
         return elasticsearchOperations.search(query, NormaliseMapping.class);
-
     }
 
     public SearchHits<RecipeMapping> getRecipes(
             String mustIngredients, String shouldIngredients, String mustNotIngredients) {
         Query query = NativeQuery.builder()
-                .withQuery(q -> q.bool(b -> b.must(
-                                m -> m.match(ma -> ma.field("ingredients").query(mustIngredients)))
-                        .should(s -> s.match(sh -> sh.field("ingredients").query(shouldIngredients)))
-                        .mustNot(m -> m.match(ma -> ma.field("ingredients").query(mustNotIngredients)))))
+                .withQuery(q -> q.bool(b -> {
+                    String value = "ingredients";
+                    return b.must(m -> m.match(ma -> ma.field(value).query(mustIngredients)))
+                            .should(s -> s.match(sh -> sh.field(value).query(shouldIngredients)))
+                            .mustNot(m -> m.match(ma -> ma.field(value).query(mustNotIngredients)));
+                }))
                 .build();
-
 
         return elasticsearchOperations.search(query, RecipeMapping.class);
     }

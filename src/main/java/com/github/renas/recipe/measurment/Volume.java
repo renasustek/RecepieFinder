@@ -1,12 +1,12 @@
 package com.github.renas.recipe.measurment;
 
-public class Volume implements Quantity{
+public class Volume implements Quantity {
 
     public final double value;
 
     public final Unit unit;
 
-    public Volume(double value, Unit unit){
+    public Volume(double value, Unit unit) {
 
         this.value = value;
         this.unit = unit;
@@ -24,9 +24,6 @@ public class Volume implements Quantity{
 
     @Override
     public String toString() {
-        return "Volume{" +
-                "value=" + value +
-                ", unit=" + unit +
-                '}';
+        return "Volume{" + "value=" + value + ", unit=" + unit + '}';
     }
 }
