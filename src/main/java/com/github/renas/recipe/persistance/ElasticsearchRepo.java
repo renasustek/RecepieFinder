@@ -1,7 +1,7 @@
 package com.github.renas.recipe.persistance;
 
-import com.github.renas.recipe.persistance.objectMappings.NormaliseMapping;
-import com.github.renas.recipe.persistance.objectMappings.RecipeMapping;
+import com.github.renas.recipe.persistance.object_mappings.NormaliseMapping;
+import com.github.renas.recipe.persistance.object_mappings.RecipeMapping;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;

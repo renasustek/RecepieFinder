@@ -6,7 +6,7 @@ import static org.mockito.BDDMockito.given;
 
 import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.persistance.ElasticsearchRepo;
-import com.github.renas.recipe.persistance.objectMappings.RecipeMapping;
+import com.github.renas.recipe.persistance.object_mappings.RecipeMapping;
 import com.github.renas.recipe.request.FindRecipeRequest;
 import com.github.renas.recipe.request.Recipe;
 import com.github.renas.recipe.request.ingredient.Ingredient;
@@ -69,10 +69,10 @@ class RecipeServiceTest {
 
     @Test
     void whenGivenRequestAndNoRecipeFoundShouldReturnEmptyList() {
-        SearchHits<RecipeMapping> searchHits = new SearchHitsImpl<>(
+        SearchHits<RecipeMapping> emptySearchHits = new SearchHitsImpl<>(
                 1L, TotalHitsRelation.OFF, 10, null, null, Collections.emptyList(), null, null, null);
         given(elasticsearchRepo.getRecipes(mustIngredientsString, shouldIngredientsString, mustNotIngredientsString))
-                .willReturn(searchHits);
+                .willReturn(emptySearchHits);
         assertTrue(recipeMatcherService.recipeSearch(validRequest).isEmpty());
     }
 }

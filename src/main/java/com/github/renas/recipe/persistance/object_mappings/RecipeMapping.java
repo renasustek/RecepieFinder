@@ -1,4 +1,4 @@
-package com.github.renas.recipe.persistance.objectMappings;
+package com.github.renas.recipe.persistance.object_mappings;
 
 import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.request.ingredient.Ingredient;

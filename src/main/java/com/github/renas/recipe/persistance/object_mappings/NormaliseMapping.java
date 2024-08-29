@@ -1,4 +1,4 @@
-package com.github.renas.recipe.persistance.objectMappings;
+package com.github.renas.recipe.persistance.object_mappings;
 
 import java.util.List;
 import java.util.UUID;

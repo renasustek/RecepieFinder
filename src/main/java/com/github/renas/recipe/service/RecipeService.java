@@ -1,7 +1,7 @@
 package com.github.renas.recipe.service;
 
 import com.github.renas.recipe.persistance.ElasticsearchRepo;
-import com.github.renas.recipe.persistance.objectMappings.RecipeMapping;
+import com.github.renas.recipe.persistance.object_mappings.RecipeMapping;
 import com.github.renas.recipe.request.FindRecipeRequest;
 import com.github.renas.recipe.request.Recipe;
 import java.util.List;
@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 public class RecipeService {
 
     private final ElasticsearchRepo elasticsearchRepo;
-
-    private int serves;
 
     public RecipeService(ElasticsearchRepo elasticsearchRepo) {
         this.elasticsearchRepo = elasticsearchRepo;
@@ -40,7 +38,6 @@ public class RecipeService {
         StringBuilder mustIngredientsSb = new StringBuilder();
         StringBuilder shouldIngredientsSb = new StringBuilder();
         StringBuilder mustNotIngredientsSb = new StringBuilder();
-        this.serves = findRecipeRequest.serves();
         findRecipeRequest
                 .mustIngredients()
                 .forEach(i -> mustIngredientsSb.append(i).append(" "));
