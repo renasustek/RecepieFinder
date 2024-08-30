@@ -13,10 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class StructureIngredients {
 
-    private StructureIngredients() {
-        throw new IllegalStateException("StructureIngredients class");
-    }
-
     public static <T extends Quantity> Ingredient<T> stringToQuantity(String ingredient) {
         ArrayList<String> units = new ArrayList<>(List.of(
                 "g", "gram", "kg", "kilogram", "ml", "millilitre", "litre", "tablespoon", "tbsp", "teaspoon", "tsp"));
