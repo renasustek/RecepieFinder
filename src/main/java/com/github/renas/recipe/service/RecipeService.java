@@ -38,6 +38,7 @@ public class RecipeService {
         StringBuilder mustIngredientsSb = new StringBuilder();
         StringBuilder shouldIngredientsSb = new StringBuilder();
         StringBuilder mustNotIngredientsSb = new StringBuilder();
+
         findRecipeRequest
                 .mustIngredients()
                 .forEach(i -> mustIngredientsSb.append(i).append(" "));

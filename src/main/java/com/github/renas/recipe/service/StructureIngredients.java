@@ -13,36 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class StructureIngredients {
 
-    //    public String ingredient;
-    //
-    //    public StructureIngredients(String ingredient) {
-    //        this.ingredient = ingredient;
-    //    }
-
-    //    public static <T extends Quantity> Ingredient<T> stringToQuantity(String ingredient) {
-    //        String regex = "(\\d+\\s?\\d*/?\\d*)?\\s*(\\w+)?\\s*(.+)";
-    //        Pattern pattern = Pattern.compile(regex);
-    //        Matcher matcher = pattern.matcher(ingredient);
-    //        if (matcher.find()) {
-    //            double value = parseQuantity(matcher.group(1));
-    //            String regexUnit = matcher.group(2);
-    //            String ingredientName = matcher.group(3);
-    //
-    //
-    //            return new Ingredient<>(parse(regexUnit, value), ingredientName);
-    //        }
-    //        return null;
-    //    }
-    //
-    //
-    //    private static double parseQuantity(String quantityStr){
-    //       if (quantityStr.contains("/")) {
-    //            String[] parts = quantityStr.split("/");
-    //            return Double.parseDouble(parts[0]) / Double.parseDouble(parts[1]);
-    //        } else {
-    //            return Double.parseDouble(quantityStr);
-    //        }
-    //    }
+    private StructureIngredients() {
+        throw new IllegalStateException("StructureIngredients class");
+    }
 
     public static <T extends Quantity> Ingredient<T> stringToQuantity(String ingredient) {
         ArrayList<String> units = new ArrayList<>(List.of(
@@ -72,10 +45,6 @@ public class StructureIngredients {
         String name = ingredient.substring(unitIndex + unitFound.length()).trim();
 
         return new Ingredient<>(parse(unitFound, amount), name);
-    }
-
-    private static Double amountParser(String amount) {
-        return Double.parseDouble(amount);
     }
 
     @SuppressWarnings("unchecked")
