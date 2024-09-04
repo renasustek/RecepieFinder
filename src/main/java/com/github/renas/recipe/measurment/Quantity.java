@@ -1,9 +1,9 @@
 package com.github.renas.recipe.measurment;
 
 public interface Quantity {
-    double getValue();
+    double value();
 
-    Unit getUnit();
+    Unit unit();
 
     String toString();
 }

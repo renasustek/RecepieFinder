@@ -23,10 +23,10 @@ class StructureIngredientsTest {
         System.out.println(
                 actualIngredient.getName() + actualIngredient.getQuantity().toString());
         assertThat(actualIngredient.getName()).isEqualTo(expectedIngredient.getName());
-        assertThat(actualIngredient.getQuantity().getUnit())
-                .isEqualTo(expectedIngredient.getQuantity().getUnit());
-        assertThat(actualIngredient.getQuantity().getValue())
-                .isEqualTo(expectedIngredient.getQuantity().getValue());
+        assertThat(actualIngredient.getQuantity().unit())
+                .isEqualTo(expectedIngredient.getQuantity().unit());
+        assertThat(actualIngredient.getQuantity().value())
+                .isEqualTo(expectedIngredient.getQuantity().value());
     }
 
     private static Stream<Arguments> provideIngredients() {

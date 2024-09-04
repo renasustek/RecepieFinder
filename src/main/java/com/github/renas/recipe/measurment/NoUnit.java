@@ -9,12 +9,12 @@ public class NoUnit implements Quantity {
     }
 
     @Override
-    public double getValue() {
+    public double value() {
         return 0;
     }
 
     @Override
-    public Unit getUnit() {
+    public Unit unit() {
         return Unit.NOUNIT;
     }
 }

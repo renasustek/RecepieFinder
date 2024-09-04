@@ -1,26 +1,6 @@
 package com.github.renas.recipe.measurment;
 
-public class Volume implements Quantity {
-
-    public final double value;
-
-    public final Unit unit;
-
-    public Volume(double value, Unit unit) {
-
-        this.value = value;
-        this.unit = unit;
-    }
-
-    @Override
-    public double getValue() {
-        return value;
-    }
-
-    @Override
-    public Unit getUnit() {
-        return unit;
-    }
+public record Volume(double value, Unit unit) implements Quantity {
 
     @Override
     public String toString() {

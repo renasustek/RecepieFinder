@@ -1,7 +1,7 @@
 package com.github.renas.recipe.service;
 
 import com.github.renas.recipe.persistance.ElasticsearchRepo;
-import com.github.renas.recipe.persistance.object_mappings.RecipeMapping;
+import com.github.renas.recipe.persistance.object_mappings.NormalisedMapping;
 import com.github.renas.recipe.request.FindRecipeRequest;
 import com.github.renas.recipe.request.Recipe;
 import java.util.List;
@@ -19,7 +19,7 @@ public class RecipeService {
 
     public Recipe addRecipes(Recipe recipe) {
 
-        RecipeMapping recipeMapping = elasticsearchRepo.addRecipe(new RecipeMapping(
+        NormalisedMapping normalisedMapping = elasticsearchRepo.addRecipe(new NormalisedMapping(
                 UUID.randomUUID(),
                 recipe.name(),
                 recipe.description(),
@@ -27,11 +27,11 @@ public class RecipeService {
                 recipe.steps(),
                 recipe.serves()));
         return new Recipe(
-                recipeMapping.getName(),
-                recipeMapping.getDescription(),
-                recipeMapping.getIngredients(),
-                recipeMapping.getSteps(),
-                recipeMapping.getServes());
+                normalisedMapping.getName(),
+                normalisedMapping.getDescription(),
+                normalisedMapping.getIngredients(),
+                normalisedMapping.getSteps(),
+                normalisedMapping.getServes());
     }
 
     public List<Recipe> recipeSearch(FindRecipeRequest findRecipeRequest) {

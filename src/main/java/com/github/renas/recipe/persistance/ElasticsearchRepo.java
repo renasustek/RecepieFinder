@@ -1,7 +1,7 @@
 package com.github.renas.recipe.persistance;
 
-import com.github.renas.recipe.persistance.object_mappings.NormaliseMapping;
-import com.github.renas.recipe.persistance.object_mappings.RecipeMapping;
+import com.github.renas.recipe.persistance.object_mappings.NormalisedMapping;
+import com.github.renas.recipe.persistance.object_mappings.PreNormalisedMapping;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -17,16 +17,16 @@ public class ElasticsearchRepo {
         this.elasticsearchOperations = elasticsearchOperations;
     }
 
-    public RecipeMapping addRecipe(RecipeMapping recipe) {
+    public NormalisedMapping addRecipe(NormalisedMapping recipe) {
         return elasticsearchOperations.save(recipe);
     }
 
-    public SearchHits<NormaliseMapping> getAllRecipes() {
+    public SearchHits<PreNormalisedMapping> getAllRecipes() {
         Query query = NativeQuery.builder().withQuery(q -> q.matchAll(ma -> ma)).build();
-        return elasticsearchOperations.search(query, NormaliseMapping.class);
+        return elasticsearchOperations.search(query, PreNormalisedMapping.class);
     }
 
-    public SearchHits<RecipeMapping> getRecipes(
+    public SearchHits<NormalisedMapping> getRecipes(
             String mustIngredients, String shouldIngredients, String mustNotIngredients) {
         Query query = NativeQuery.builder()
                 .withQuery(q -> q.bool(b -> {
@@ -37,6 +37,6 @@ public class ElasticsearchRepo {
                 }))
                 .build();
 
-        return elasticsearchOperations.search(query, RecipeMapping.class);
+        return elasticsearchOperations.search(query, NormalisedMapping.class);
     }
 }

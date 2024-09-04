@@ -1,16 +1,12 @@
 package com.github.renas.recipe.persistance.object_mappings;
 
-import com.github.renas.recipe.measurment.Quantity;
-import com.github.renas.recipe.request.ingredient.Ingredient;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "sample5")
-public class RecipeMapping {
+public abstract class RecipeMapping {
     @Id
     private UUID id;
 
@@ -20,26 +16,16 @@ public class RecipeMapping {
     @Field(type = FieldType.Text)
     private String description;
 
-    @Field(type = FieldType.Nested, includeInParent = true)
-    private List<Ingredient<Quantity>> ingredients;
-
     @Field(type = FieldType.Text)
     private List<String> steps;
 
     @Field(type = FieldType.Text)
     private String serves;
 
-    public RecipeMapping(
-            UUID id,
-            String name,
-            String description,
-            List<Ingredient<Quantity>> ingredients,
-            List<String> steps,
-            String serves) {
+    public RecipeMapping(UUID id, String name, String description, List<String> steps, String serves) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.ingredients = ingredients;
         this.steps = steps;
         this.serves = serves;
     }
@@ -66,14 +52,6 @@ public class RecipeMapping {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<Ingredient<Quantity>> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient<Quantity>> ingredients) {
-        this.ingredients = ingredients;
     }
 
     public List<String> getSteps() {

@@ -6,7 +6,7 @@ import static org.mockito.BDDMockito.given;
 
 import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.persistance.ElasticsearchRepo;
-import com.github.renas.recipe.persistance.object_mappings.RecipeMapping;
+import com.github.renas.recipe.persistance.object_mappings.NormalisedMapping;
 import com.github.renas.recipe.request.FindRecipeRequest;
 import com.github.renas.recipe.request.Recipe;
 import com.github.renas.recipe.request.ingredient.Ingredient;
@@ -46,11 +46,11 @@ class RecipeServiceTest {
     Recipe recipe = new Recipe(name, description, ingredients, steps, serves);
     List<Recipe> recipes = List.of(recipe);
 
-    RecipeMapping recipeMapping = new RecipeMapping(
+    NormalisedMapping normalisedMapping = new NormalisedMapping(
             UUID.randomUUID(), recipe.name(), "description", recipe.ingredients(), recipe.steps(), "2");
-    SearchHit<RecipeMapping> searchHit =
-            new SearchHit<>(null, null, null, 1.0f, null, null, null, null, null, null, recipeMapping);
-    SearchHits<RecipeMapping> searchHits =
+    SearchHit<NormalisedMapping> searchHit =
+            new SearchHit<>(null, null, null, 1.0f, null, null, null, null, null, null, normalisedMapping);
+    SearchHits<NormalisedMapping> searchHits =
             new SearchHitsImpl<>(1L, TotalHitsRelation.OFF, 10, null, null, List.of(searchHit), null, null, null);
 
     String mustIngredientsString = "one two ";
@@ -69,7 +69,7 @@ class RecipeServiceTest {
 
     @Test
     void whenGivenRequestAndNoRecipeFoundShouldReturnEmptyList() {
-        SearchHits<RecipeMapping> emptySearchHits = new SearchHitsImpl<>(
+        SearchHits<NormalisedMapping> emptySearchHits = new SearchHitsImpl<>(
                 1L, TotalHitsRelation.OFF, 10, null, null, Collections.emptyList(), null, null, null);
         given(elasticsearchRepo.getRecipes(mustIngredientsString, shouldIngredientsString, mustNotIngredientsString))
                 .willReturn(emptySearchHits);
