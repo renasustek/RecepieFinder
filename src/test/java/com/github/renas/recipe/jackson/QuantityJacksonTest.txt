@@ -14,7 +14,6 @@
  import org.springframework.boot.test.context.SpringBootTest;
  import tech.units.indriya.quantity.Quantities;
  import tech.units.indriya.unit.Units;
-
  @SpringBootTest
  class QuantityJacksonTest {
 
