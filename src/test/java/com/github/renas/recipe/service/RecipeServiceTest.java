@@ -47,7 +47,7 @@ class RecipeServiceTest {
     List<Recipe> recipes = List.of(recipe);
 
     NormalisedMapping normalisedMapping = new NormalisedMapping(
-            UUID.randomUUID(), recipe.name(), "description", recipe.ingredients(), recipe.steps(), "2");
+            UUID.randomUUID(), recipe.name(), recipe.description(), recipe.ingredients(), recipe.steps(), "2");
     SearchHit<NormalisedMapping> searchHit =
             new SearchHit<>(null, null, null, 1.0f, null, null, null, null, null, null, normalisedMapping);
     SearchHits<NormalisedMapping> searchHits =

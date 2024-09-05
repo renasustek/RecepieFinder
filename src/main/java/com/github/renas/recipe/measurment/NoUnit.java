@@ -10,7 +10,7 @@ public class NoUnit implements Quantity {
 
     @Override
     public double value() {
-        return 0;
+        return value;
     }
 
     @Override
