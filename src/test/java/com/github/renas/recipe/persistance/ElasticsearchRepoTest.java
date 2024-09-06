@@ -38,7 +38,7 @@ class ElasticsearchRepoTest {
     }
 
     @Test
-    void addRecipe_ShouldReturnSavedRecipe() {
+    void addRecipeShouldReturnSavedRecipe() {
         List<String> mustIngredients = List.of("one", "two");
         List<String> shouldIngredients = List.of("one", "two");
         List<String> mustNotIngredients = List.of("one", "two");
@@ -67,7 +67,7 @@ class ElasticsearchRepoTest {
     }
 
     @Test
-    void getAllRecipes_ShouldReturnSearchHits() {
+    void getAllRecipesShouldReturnSearchHits() {
         SearchHits<PreNormalisedMapping> searchHits = mock(SearchHits.class);
         when(elasticsearchOperations.search(any(Query.class), eq(PreNormalisedMapping.class)))
                 .thenReturn(searchHits);
@@ -80,7 +80,7 @@ class ElasticsearchRepoTest {
     }
 
     @Test
-    void getRecipes_ShouldReturnSearchHits() {
+    void getRecipesShouldReturnSearchHits() {
         String mustIngredients = "chicken";
         String shouldIngredients = "onion";
         String mustNotIngredients = "garlic";
