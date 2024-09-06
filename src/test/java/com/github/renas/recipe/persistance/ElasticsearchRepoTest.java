@@ -16,9 +16,9 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Query;
@@ -26,7 +26,7 @@ import org.springframework.data.elasticsearch.core.query.Query;
 @SpringBootTest
 class ElasticsearchRepoTest {
 
-    @Mock
+    @MockBean
     private ElasticsearchOperations elasticsearchOperations;
 
     @InjectMocks

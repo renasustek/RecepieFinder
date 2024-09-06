@@ -20,9 +20,10 @@ class StructureIngredientsTest {
         Ingredient<Quantity> actualIngredient = StructureIngredients.stringToQuantity(ingredientStr);
         System.out.println(
                 expectedIngredient.getName() + expectedIngredient.getQuantity().toString());
-        System.out.println(
-                actualIngredient.getName() + actualIngredient.getQuantity().toString());
-        assertThat(actualIngredient.getName()).isEqualTo(expectedIngredient.getName());
+        System.out.println(actualIngredient.getName()
+                + actualIngredient.getQuantity().toString().trim());
+        assertThat(actualIngredient.getName())
+                .isEqualTo(expectedIngredient.getName().trim());
         assertThat(actualIngredient.getQuantity().unit())
                 .isEqualTo(expectedIngredient.getQuantity().unit());
         assertThat(actualIngredient.getQuantity().value())
