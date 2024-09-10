@@ -17,7 +17,7 @@ public class QuantitySerializer extends StdScalarSerializer<Quantity> {
     public void serialize(Quantity quantity, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartObject();
         gen.writeNumberField("quantity", quantity.value());
-        gen.writeStringField("unit", quantity.unit().toString());
+        gen.writeStringField("unit", quantity.unit().name());
         gen.writeEndObject();
     }
 }

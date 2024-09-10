@@ -9,6 +9,7 @@ public class MyClientConfig extends ElasticsearchConfiguration {
 
     @Override
     public ClientConfiguration clientConfiguration() {
-        return ClientConfiguration.builder().connectedTo("localhost:9200").build();
+        String hostAndPort = "localhost:9200";
+        return ClientConfiguration.builder().connectedTo(hostAndPort).build();
     }
 }
