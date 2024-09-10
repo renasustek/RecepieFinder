@@ -15,18 +15,19 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Query;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class) // Ensure Mockito extension is used
 class ElasticsearchRepoTest {
 
-    @MockBean
+    @Mock
     private ElasticsearchOperations elasticsearchOperations;
 
     @InjectMocks
@@ -39,18 +40,7 @@ class ElasticsearchRepoTest {
 
     @Test
     void addRecipeShouldReturnSavedRecipe() {
-        List<String> mustIngredients = List.of("one", "two");
-        List<String> shouldIngredients = List.of("one", "two");
-        List<String> mustNotIngredients = List.of("one", "two");
-        FindRecipeRequest validRequest =
-                new FindRecipeRequest(mustIngredients, shouldIngredients, mustNotIngredients, 2);
-
-        String name = "Example";
-        String description = "Example description";
-        String serves = "2";
-        List<Ingredient<Quantity>> ingredients = Collections.emptyList();
-        List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
-        Recipe recipe = new Recipe(name, description, ingredients, steps, serves);
+        Recipe recipe = getRecipe();
         NormalisedMapping normalisedMapping = new NormalisedMapping(
                 UUID.randomUUID(), recipe.name(), recipe.description(), recipe.ingredients(), recipe.steps(), "2");
 
@@ -64,6 +54,22 @@ class ElasticsearchRepoTest {
         assertEquals(recipe.steps(), result.getSteps());
         assertEquals(recipe.serves(), result.getServes());
         verify(elasticsearchOperations, times(1)).save(normalisedMapping);
+    }
+
+    private static Recipe getRecipe() {
+        List<String> mustIngredients = List.of("one", "two");
+        List<String> shouldIngredients = List.of("one", "two");
+        List<String> mustNotIngredients = List.of("one", "two");
+        FindRecipeRequest validRequest =
+                new FindRecipeRequest(mustIngredients, shouldIngredients, mustNotIngredients, 2);
+
+        String name = "Example";
+        String description = "Example description";
+        String serves = "2";
+        List<Ingredient<Quantity>> ingredients = Collections.emptyList();
+        List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
+        Recipe recipe = new Recipe(name, description, ingredients, steps, serves);
+        return recipe;
     }
 
     @Test
