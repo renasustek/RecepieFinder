@@ -11,12 +11,16 @@ public class NormaliseService {
 
     private final ElasticsearchRepo elasticsearchRepo;
 
-    public NormaliseService(ElasticsearchRepo elasticsearchRepo) {
+    private final RecipeService recipeService;
+
+    public NormaliseService(ElasticsearchRepo elasticsearchRepo, RecipeService recipeService) {
         this.elasticsearchRepo = elasticsearchRepo;
+        this.recipeService = recipeService;
     }
 
     public List<Recipe> normalise() {
-        return elasticsearchRepo.getAllRecipes().getSearchHits().stream()
+
+        List<Recipe> normalisedRecipes = elasticsearchRepo.getAllRecipes().getSearchHits().stream()
                 .map(SearchHit::getContent)
                 .map(content -> new Recipe(
                         content.getName(),
@@ -27,5 +31,7 @@ public class NormaliseService {
                         content.getSteps(),
                         content.getServes()))
                 .toList();
+
+        return normalisedRecipes.stream().map(recipeService::addRecipes).toList();
     }
 }

@@ -30,7 +30,7 @@ public class ElasticsearchRepo {
             String mustIngredients, String shouldIngredients, String mustNotIngredients) {
         Query query = NativeQuery.builder()
                 .withQuery(q -> q.bool(b -> {
-                    String value = "ingredients";
+                    String value = "ingredients.name";
                     return b.must(m -> m.match(ma -> ma.field(value).query(mustIngredients)))
                             .should(s -> s.match(sh -> sh.field(value).query(shouldIngredients)))
                             .mustNot(m -> m.match(ma -> ma.field(value).query(mustNotIngredients)));

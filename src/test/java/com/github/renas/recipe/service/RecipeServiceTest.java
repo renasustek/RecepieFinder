@@ -2,6 +2,7 @@ package com.github.renas.recipe.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 import com.github.renas.recipe.measurment.Quantity;
@@ -31,7 +32,7 @@ class RecipeServiceTest {
     public ElasticsearchRepo elasticsearchRepo;
 
     @InjectMocks
-    public RecipeService recipeMatcherService;
+    public RecipeService recipeService;
 
     List<String> mustIngredients = List.of("one", "two");
     List<String> shouldIngredients = List.of("one", "two");
@@ -61,9 +62,9 @@ class RecipeServiceTest {
     void whenGivenValidRequestShouldReturnList() {
         given(elasticsearchRepo.getRecipes(mustIngredientsString, shouldIngredientsString, mustNotIngredientsString))
                 .willReturn(searchHits);
-        assertThat(recipeMatcherService.recipeSearch(validRequest).get(0).name())
+        assertThat(recipeService.recipeSearch(validRequest).get(0).name())
                 .isEqualTo(searchHit.getContent().getName());
-        assertThat(recipeMatcherService.recipeSearch(validRequest).get(0).ingredients())
+        assertThat(recipeService.recipeSearch(validRequest).get(0).ingredients())
                 .isEqualTo(searchHit.getContent().getIngredients());
     }
 
@@ -73,6 +74,19 @@ class RecipeServiceTest {
                 1L, TotalHitsRelation.OFF, 10, null, null, Collections.emptyList(), null, null, null);
         given(elasticsearchRepo.getRecipes(mustIngredientsString, shouldIngredientsString, mustNotIngredientsString))
                 .willReturn(emptySearchHits);
-        assertTrue(recipeMatcherService.recipeSearch(validRequest).isEmpty());
+        assertTrue(recipeService.recipeSearch(validRequest).isEmpty());
+    }
+
+    @Test
+    void whenGivenRecipeToAddShouldReturnAValidRecipe() {
+        given(elasticsearchRepo.addRecipe(any(NormalisedMapping.class))).willReturn(normalisedMapping);
+
+        Recipe addRecipe = recipeService.addRecipes(recipe);
+
+        assertThat(addRecipe.name()).isEqualTo(normalisedMapping.getName());
+        assertThat(addRecipe.description()).isEqualTo(normalisedMapping.getDescription());
+        assertThat(addRecipe.ingredients()).isEqualTo(normalisedMapping.getIngredients());
+        assertThat(addRecipe.steps()).isEqualTo(normalisedMapping.getSteps());
+        assertThat(addRecipe.serves()).isEqualTo(normalisedMapping.getServes());
     }
 }

@@ -1,13 +1,14 @@
 package com.github.renas.recipe.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.measurment.Unit;
 import com.github.renas.recipe.measurment.Volume;
 import com.github.renas.recipe.persistance.ElasticsearchRepo;
+import com.github.renas.recipe.persistance.object_mappings.NormalisedMapping;
 import com.github.renas.recipe.persistance.object_mappings.PreNormalisedMapping;
 import com.github.renas.recipe.request.Recipe;
 import com.github.renas.recipe.request.ingredient.Ingredient;
@@ -19,10 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.elasticsearch.core.SearchHit;
-import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.SearchHitsImpl;
-import org.springframework.data.elasticsearch.core.TotalHitsRelation;
+import org.springframework.data.elasticsearch.core.*;
 
 @ExtendWith(MockitoExtension.class)
 class NormaliseServiceTest {
@@ -33,6 +31,9 @@ class NormaliseServiceTest {
     @InjectMocks
     public NormaliseService normaliseService;
 
+    @Mock
+    public RecipeService recipeService;
+
     String name = "Example";
     String description = "Example description";
     String serves = "2";
@@ -41,9 +42,9 @@ class NormaliseServiceTest {
 
     List<Ingredient<Quantity>> ingredientsQuantity =
             List.of(new Ingredient<>(new Volume(2.0, Unit.TABLESPOON), "half-fat soured cream"));
-
-    List<Recipe> validRecipeList =
-            new ArrayList<>(List.of(new Recipe(name, description, ingredientsQuantity, steps, serves)));
+    Recipe recipe = new Recipe(name, description, ingredientsQuantity, steps, serves);
+    NormalisedMapping normalisedMapping = new NormalisedMapping(
+            UUID.randomUUID(), recipe.name(), recipe.description(), recipe.ingredients(), steps, serves);
 
     PreNormalisedMapping preNormalisedMapping =
             new PreNormalisedMapping(UUID.randomUUID(), name, description, ingredients, steps, serves);
@@ -55,20 +56,15 @@ class NormaliseServiceTest {
     @Test
     void whenCalledShouldNormaliseListProvidedByPersistance() {
         given(elasticsearchRepo.getAllRecipes()).willReturn(searchHits);
-        assertThat(normaliseService
-                        .normalise()
-                        .getFirst()
-                        .ingredients()
-                        .getFirst()
-                        .getQuantity()
-                        .toString())
-                .isEqualTo(ingredientsQuantity.getFirst().getQuantity().toString());
-        assertThat(normaliseService
-                        .normalise()
-                        .getFirst()
-                        .ingredients()
-                        .getFirst()
-                        .getName())
-                .isEqualTo(ingredientsQuantity.getFirst().getName());
+        given(recipeService.addRecipes(any(Recipe.class))).willReturn(recipe);
+
+        List<Recipe> result = normaliseService.normalise();
+
+        assertThat(result).containsExactly(recipe);
+
+        assertThat(result.getFirst().name()).isEqualTo(name);
+        assertThat(result.getFirst().description()).isEqualTo(description);
+        assertThat(result.getFirst().steps()).isEqualTo(steps);
+        assertThat(result.getFirst().serves()).isEqualTo(serves);
     }
 }
