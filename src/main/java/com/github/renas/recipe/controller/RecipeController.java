@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "https://localhost:8080")
 @RequestMapping(value = "/recipe", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RecipeController {
 
