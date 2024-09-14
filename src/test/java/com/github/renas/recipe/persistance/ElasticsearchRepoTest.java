@@ -6,7 +6,6 @@ import static org.mockito.Mockito.*;
 import com.github.renas.recipe.measurment.Quantity;
 import com.github.renas.recipe.persistance.object_mappings.NormalisedMapping;
 import com.github.renas.recipe.persistance.object_mappings.PreNormalisedMapping;
-import com.github.renas.recipe.request.FindRecipeRequest;
 import com.github.renas.recipe.request.Recipe;
 import com.github.renas.recipe.request.ingredient.Ingredient;
 import java.util.ArrayList;
@@ -57,19 +56,12 @@ class ElasticsearchRepoTest {
     }
 
     private static Recipe getRecipe() {
-        List<String> mustIngredients = List.of("one", "two");
-        List<String> shouldIngredients = List.of("one", "two");
-        List<String> mustNotIngredients = List.of("one", "two");
-        FindRecipeRequest validRequest =
-                new FindRecipeRequest(mustIngredients, shouldIngredients, mustNotIngredients, 2);
-
         String name = "Example";
         String description = "Example description";
         String serves = "2";
         List<Ingredient<Quantity>> ingredients = Collections.emptyList();
         List<String> steps = new ArrayList<>(List.of("one", "two", "three"));
-        Recipe recipe = new Recipe(name, description, ingredients, steps, serves);
-        return recipe;
+        return new Recipe(name, description, ingredients, steps, serves);
     }
 
     @Test

@@ -22,7 +22,7 @@ public abstract class RecipeMapping {
     @Field(type = FieldType.Text)
     private String serves;
 
-    public RecipeMapping(UUID id, String name, String description, List<String> steps, String serves) {
+    protected RecipeMapping(UUID id, String name, String description, List<String> steps, String serves) {
         this.id = id;
         this.name = name;
         this.description = description;

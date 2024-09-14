@@ -20,7 +20,7 @@ public class NormaliseService {
 
     public List<Recipe> normalise() {
 
-        List<Recipe> normalisedRecipes = elasticsearchRepo.getAllRecipes().getSearchHits().stream()
+        return elasticsearchRepo.getAllRecipes().getSearchHits().stream()
                 .map(SearchHit::getContent)
                 .map(content -> new Recipe(
                         content.getName(),
@@ -30,8 +30,7 @@ public class NormaliseService {
                                 .toList(),
                         content.getSteps(),
                         content.getServes()))
+                .map(recipeService::addRecipes)
                 .toList();
-
-        return normalisedRecipes.stream().map(recipeService::addRecipes).toList();
     }
 }
