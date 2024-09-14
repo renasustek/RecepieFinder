@@ -1,1 +1,1 @@
-rootProject.name = "recepieFinder"
+rootProject.name = "recipe"
